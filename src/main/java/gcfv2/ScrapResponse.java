@@ -1,4 +1,4 @@
-package com.serp.spring.crawl.task;
+package gcfv2;
 
 public class ScrapResponse {
     public String response;
