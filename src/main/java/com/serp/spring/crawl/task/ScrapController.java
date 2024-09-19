@@ -3,10 +3,7 @@ package com.serp.spring.crawl.task;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
 
 @RestController
@@ -14,11 +11,11 @@ import org.springframework.web.client.RestClient;
 public class ScrapController {
 
     @GetMapping("scrap")
-    public ResponseEntity<ScrapResponse> getProjects(@RequestParam("path") String path) {
+    public ResponseEntity<ScrapResponse> getProjects(@RequestBody ScrapRequest scrapRequest) {
 
         RestClient restClient = RestClient.create();
         ResponseEntity<String> response = restClient.get()
-                .uri(path)
+                .uri(scrapRequest.getUrl())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .toEntity(String.class);
