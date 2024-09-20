@@ -15,7 +15,6 @@ public class ScrapFunction implements HttpFunction {
         final BufferedWriter writer = response.getWriter();
 
         Optional<String> url = request.getFirstQueryParameter("url");
-        StringBuilder sb = new StringBuilder();
 
         if (url.isPresent()) {
 
@@ -25,13 +24,7 @@ public class ScrapFunction implements HttpFunction {
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
                     .toEntity(String.class);
-            if (urlResponse == null) {
-                sb.append("{ response: \"No Response\", statusCode:").append("\"").append("404").append("\"}");
-            } else {
-                sb.append("{ response: \"").append(urlResponse.getBody()).append("\",").append("statusCode: \"")
-                        .append(urlResponse.getStatusCode().value()).append("\"}");
-            }
-            writer.write(sb.toString());
+            writer.write(urlResponse == null ? "": urlResponse.getBody());
         } else {
             writer.write("URL not found in params");
         }
