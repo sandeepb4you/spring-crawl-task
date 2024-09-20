@@ -8,10 +8,7 @@ functions.http('scrap-web', async (req, res) => {
         const response = await axios.get(name);
 
         // Send the response back to the client
-        res.status(200).send({
-            message: name,
-            data: response.data,
-        });
+        res.status(200).send(response.data);
     } catch (error) {
         console.error('Error making HTTP request:', error);
         res.status(500).send({
